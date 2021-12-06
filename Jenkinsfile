@@ -1,21 +1,13 @@
 pipeline{
 agent any
 tools{
-maven 'apache-maven-3.8.3'
+maven 'M3'
+jdk 'JAVA_HOME'
 }
-
 stages {
-stage('Verify Branch'){
-steps{
-echo "@GIT_BRANCH"
-
-
-
-}
-}
 stage('Checkout'){
 steps{
-git branch: 'main', url: 'https://github.com/poojadeshmukh1/online.advertisement.system-main.git'
+git branch: 'master', url: 'https://github.com/pjptl/Ebugtracker_Latest.git'
 }
 }
 stage('Build'){
@@ -28,21 +20,23 @@ steps{
 bat 'mvn package'
 }
 }
-
-stage('Test'){
+stage('Create Image')
+{
 steps{
-bat 'mvn test'
+bat 'docker build -t image1 .'
 }
 }
-stage('Deploy'){
+stage('Create Container')
+{
 steps{
-bat 'java -jar "C:/Program Files (x86)/Jenkins/workspace/OnlineJob1/target/newspaper.advertisement.system-0.0.1-SNAPSHOT.jar"'
+bat 'docker container create -p 8081:8081 --name container1 image1:v1'
 }
 }
-
-
-
-
-
+stage('Start Container')
+{
+steps{
+bat 'docker start container1'
+}
+}
 }
 }

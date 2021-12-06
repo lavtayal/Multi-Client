@@ -1,13 +1,13 @@
 pipeline{
 agent any
 tools{
-maven 'M3'
+maven 'MCW'
 jdk 'JAVA_HOME'
 }
 stages {
 stage('Checkout'){
 steps{
-git branch: 'master', url: 'https://github.com/pjptl/Ebugtracker_Latest.git'
+git branch: 'master', url: 'https://github.com/lavtayal/Multi-Client.git'
 }
 }
 stage('Build'){

@@ -26,7 +26,7 @@ bat 'docker build -t image_name:v1 .'
 stage('Create Container')
 {
 steps{
-bat 'docker container create -p 80:80 --name container_name image_name:v1'
+bat 'docker container create -p 8000:8000 --name container_name image_name:v1'
 }
 }
 stage('Start Container')

@@ -1,13 +1,10 @@
 pipeline{
-agent any
-tools{
-maven 'MCW'
-jdk 'JAVA_HOME'
-}
-stages {
+agent{label 'master'}
+tools{maven 'MCW'}
+stages{
 stage('Checkout'){
 steps{
-git branch: 'master', url: 'https://github.com/lavtayal/Multi-Client.git'
+git branch: 'main', url: 'https://github.com/lavtayal/Multi-Client.git'
 }
 }
 stage('Build'){
@@ -23,19 +20,19 @@ bat 'mvn package'
 stage('Create Image')
 {
 steps{
-bat 'docker build -t image1 .'
+bat 'docker build -t image_name:v1 .'
 }
 }
 stage('Create Container')
 {
 steps{
-bat 'docker container create -p 8081:8081 --name container1 image1:v1'
+bat 'docker container create -p 8081:8081 --name container_name image_name:v1'
 }
 }
 stage('Start Container')
 {
 steps{
-bat 'docker start container1'
+bat 'docker start container_name'
 }
 }
 }
